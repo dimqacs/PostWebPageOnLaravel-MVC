@@ -5,9 +5,10 @@
 @section('htmlFundament')
     <h1>Posts Page</h1>
     @foreach($posts as $post)
+        <script>console.log('{{$post->id}}')</script>
         <div><b>{{$post->id}}.</b> {{$post->title}}</div>
     @endforeach
     <div class="mt-3">
-        {{$posts->links()}}
+        {{$posts->withQueryString()->links()}}
     </div>
 @endsection
