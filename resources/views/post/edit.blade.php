@@ -1,12 +1,16 @@
 @extends('layouts.main')
-@section('html_fundament')
+@section('title')
+    Edit Post
+@endsection
+@section('htmlFundament')
     <div>
         <form action="{{route('post.update', $post->id)}}" method="post">
             @csrf
             @method('patch')
             <div class="form-group">
                 <label for="title">Enter Post Title: </label>
-                <input type="text" name="title" class="form-control" id="title" placeholder="Title" value="{{$post->title}}">
+                <input type="text" name="title" class="form-control" id="title" placeholder="Title"
+                       value="{{$post->title}}">
             </div>
             <div class="form-group">
                 <label for="content">Enter Post Content: </label>
@@ -32,7 +36,8 @@
                 <h1>Select Tags: </h1>
                 @foreach($tags as $tag)
                     <div class="form-group">
-                        <input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->name}}" name="tags[]"
+                        <input class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->name}}"
+                               name="tags[]"
                         @foreach($post->tags as $postTag)
                             {{$tag->id === $postTag->id ? ' checked' : ''}}
                             @endforeach

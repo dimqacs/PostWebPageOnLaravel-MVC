@@ -1,25 +1,31 @@
 @extends('layouts.main')
-@section('html_fundament')
+@section('title')
+    Create Post
+@endsection
+@section('htmlFundament')
     <div>
         <form action="{{route('post.store')}}" method="post">
             @csrf
             <div class="form-group">
                 <label for="title">Enter Post Title: </label>
-                <input value="{{old('title')}}" type="text" name="title" class="form-control" id="title" placeholder="Title">
+                <input value="{{old('title')}}" type="text" name="title" class="form-control" id="title"
+                       placeholder="Title">
                 @error('title')
                 <p class="text-danger">{{$message}}</p>
                 @enderror()
             </div>
             <div class="form-group">
                 <label for="content">Enter Post Content: </label>
-                <textarea name="content" class="form-control" id="content" placeholder="Content">{{old('content')}}</textarea>
+                <textarea name="content" class="form-control" id="content"
+                          placeholder="Content">{{old('content')}}</textarea>
                 @error('content')
                 <p class="text-danger">{{$message}}</p>
                 @enderror()
             </div>
             <div class="form-group">
                 <label for="image">Enter Post Image URL: </label>
-                <input type="text" name="image" class="form-control" id="image" placeholder="Image URL" value="{{old('image')}}">
+                <input type="text" name="image" class="form-control" id="image" placeholder="Image URL"
+                       value="{{old('image')}}">
                 @error('image')
                 <p class="text-danger">{{$message}}</p>
                 @enderror()
@@ -40,7 +46,8 @@
                     <div class="form-group">
                         <input
                             {{in_array($tag->id, old('tags', [])) ? 'checked' : ''}}
-                            class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->name}}" name="tags[]">
+                            class="form-check-input" type="checkbox" value="{{$tag->id}}" id="{{$tag->name}}"
+                            name="tags[]">
                         <label class="form-label" for="{{$tag->name}}">{{$tag->name}}</label>
                     </div>
                 @endforeach

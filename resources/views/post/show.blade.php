@@ -1,7 +1,10 @@
 @extends('layouts.main')
-@section('html_fundament')
+@section('title')
+    Update Post
+@endsection
+@section('htmlFundament')
     <div>
         <div><b>{{$post->id}}.</b> {{$post->title}}</div>
-        <div>{{$post->post_content}}</div>
+        <div>{{$post->content}}</div>
     </div>
 @endsection
