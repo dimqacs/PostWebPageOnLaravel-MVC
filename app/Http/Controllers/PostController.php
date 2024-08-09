@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateRequest;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\PostTag;
 use App\Models\Tag;
 
-class PostController extends Controller
+class PostController extends BaseController
 {
     public function index()
     {
@@ -22,22 +24,9 @@ class PostController extends Controller
         return view('post.create', compact('categories', 'tags'));
     }
 
-    public function store()
+    public function store(StoreRequest $request)
     {
-        $data = request()->validate([
-            'title' => 'required|string',
-            'content' => 'required|string',
-            'image' => 'required|string',
-            'category_id' => 'integer',
-            'tags' => '',
-        ]);
-
-        $tags = $data['tags'];
-        unset($data['tags']);
-
-        $post = Post::create($data);
-
-        $post->tags()->attach($tags);
+        $this->service->store($request->validated());
 
         return redirect()->route('post.index');
     }
@@ -54,23 +43,11 @@ class PostController extends Controller
         return view('post.edit', compact('post', 'categories', 'tags'));
     }
 
-    public function update(Post $post)
+    public function update(UpdateRequest $request, Post $post)
     {
-        $data = request()->validate([
-            'title' => 'string',
-            'content' => 'string',
-            'image' => 'string',
-            'category_id' => 'integer',
-            'tags' => ''
-        ]);
+        $updatedPost = $this->service->update($post, $request->validated());
 
-        $tags = $data['tags'];
-        unset($data['tags']);
-
-        $post->update($data);
-        $post->tags()->sync($tags);
-
-        return redirect()->route('post.show', $post->id);
+        return redirect()->route('post.show', $updatedPost->id);
     }
 
     public function destroy(Post $post)
@@ -78,7 +55,6 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('post.index');
     }
-
 
 
 }
