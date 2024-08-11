@@ -12,6 +12,7 @@ class Service
         unset($data['tags']);
 
         $post = new Post($data);
+        $post->save();
 
         $post->tags()->attach($tags);
     }

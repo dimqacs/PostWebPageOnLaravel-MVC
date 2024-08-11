@@ -28,7 +28,7 @@
 
         <div class="d-none flex-sm-fill d-sm-flex align-items-sm-center justify-content-sm-evenly">
             <div>
-                <p class="small text-muted">
+                <p class="small text-muted mr-3">
                     {!! __('Showing') !!}
                     <span class="fw-semibold">{{ $paginator->firstItem() }}</span>
                     {!! __('to') !!}

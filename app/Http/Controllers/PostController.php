@@ -18,8 +18,7 @@ class PostController extends BaseController
         $filter = app()->make(PostFilter::class, ['queryParams' => array_filter($request->validated())]);
 
         $posts = Post::filter($filter)->paginate(10);
-
-
+        
         return view('post.index', compact('posts'));
     }
 

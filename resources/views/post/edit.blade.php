@@ -14,7 +14,7 @@
             </div>
             <div class="form-group">
                 <label for="content">Enter Post Content: </label>
-                <textarea name="post_content" class="form-control" id="content"
+                <textarea name="content" class="form-control" id="content"
                           placeholder="Content">{{$post->content}}</textarea>
             </div>
             <div class="form-group">
