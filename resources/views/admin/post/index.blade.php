@@ -3,10 +3,33 @@
     <div>
         <a href="{{route('admin.post.create')}}" class="btn btn-primary mb-3">Create a new Post</a>
     </div>
-    @foreach($posts as $post)
-        <div><b>{{$post->id}}.</b> {{$post->title}}</div>
-    @endforeach
-    <div class="mt-3">
-        {{$posts->withQueryString()->links()}}
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Posts</h3>
+        </div>
+
+        <div class="card-body pb-0">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th class="text-center" style="width: 50px">Id</th>
+                    <th>Title</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($posts as $post)
+                    <tr>
+                        <td class="text-center">{{$post->id}}</td>
+                        <td>{{$post->title}}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card-footer clearfix d-flex justify-content-end">
+            {{$posts->withQueryString()->links()}}
+        </div>
     </div>
 </x-app-layout>
