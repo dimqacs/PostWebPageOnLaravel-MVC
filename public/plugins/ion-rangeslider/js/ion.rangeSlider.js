@@ -24,7 +24,7 @@
     "use strict";
 
     // =================================================================================================================
-    // Service
+    // PostService
 
     var plugin_count = 0;
 
@@ -1719,7 +1719,7 @@
 
 
         // =============================================================================================================
-        // Service methods
+        // PostService methods
 
         toggleInput: function () {
             this.$cache.input.toggleClass("irs-hidden-input");

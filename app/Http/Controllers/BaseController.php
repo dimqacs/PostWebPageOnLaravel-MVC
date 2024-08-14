@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\Post\Service;
+use App\Services\PostService;
+use App\Services\RoleService;
 
 class BaseController extends Controller
 {
-    protected Service $service;
+    protected PostService $postService;
 
-    public function __construct(Service $service)
+    protected RoleService $roleService;
+
+    public function __construct(PostService $postService, RoleService $roleService)
     {
-        $this->service = $service;
+        $this->postService = $postService;
+
+        $this->roleService = $roleService;
     }
 
 }

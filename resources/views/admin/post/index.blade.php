@@ -21,7 +21,7 @@
                 @foreach($posts as $post)
                     <tr>
                         <td class="text-center">{{$post->id}}</td>
-                        <td>{{$post->title}}</td>
+                        <td><a href="{{route('admin.post.show', compact('post'))}}" class="custom-link">{{$post->title}}</a></td>
                     </tr>
                 @endforeach
                 </tbody>

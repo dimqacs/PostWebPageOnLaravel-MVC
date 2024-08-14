@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Services\Post;
+namespace App\Services;
 
 use App\Models\Post;
 
-class Service
+class PostService
 {
     public function store($data): void
     {
-        $tags = $data['tags'];
+        $tags = $data['tags'] ?? [];
         unset($data['tags']);
 
         $post = new Post($data);
@@ -19,7 +19,7 @@ class Service
 
     public function update($post, $data): Post
     {
-        $tags = $data['tags'];
+        $tags = $data['tags'] ?? [];
         unset($data['tags']);
 
         $post->update($data);

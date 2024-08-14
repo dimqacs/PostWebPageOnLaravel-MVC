@@ -5,6 +5,7 @@ namespace App\View\Components;
 use App\Models\Post;
 use Closure;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\Component;
 
 class AppLayout extends Component
@@ -23,6 +24,9 @@ class AppLayout extends Component
     public function render(): View|Closure|string
     {
         $postsCount = Post::query()->count();
-        return view('layouts.admin', compact('postsCount'));
+
+        $username = Auth::user()->name;
+
+        return view('layouts.admin', compact('postsCount', 'username'));
     }
 }

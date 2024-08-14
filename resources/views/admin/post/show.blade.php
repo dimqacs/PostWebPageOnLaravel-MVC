@@ -20,11 +20,13 @@
                 <div><b class="font-size-18">Post Category: </b>{{$post->category->name}}</div>
                 <div><b class="font-size-18">Post Tags: </b></div>
                 <div class="ml-3">
+                    {{$post->tags->isEmpty() ? 'No tags added yet.' : ''}}
                     @foreach($post->tags as $index => $tag)
                         <div><b>{{$index + 1}}</b>. {{$tag->name}}</div>
                     @endforeach
                 </div>
-                <a class="btn btn-primary mt-3" href="{{route('admin.post.delete', compact('post'))}}">Delete this Post</a>
+                <a class="btn btn-primary mt-3" href="{{route('admin.post.edit', compact('post'))}}">Update this Post</a>
+                <a class="btn btn-danger mt-3 ml-2" href="{{route('admin.post.delete', compact('post'))}}">Delete this Post</a>
             </div>
         </div>
     </div>

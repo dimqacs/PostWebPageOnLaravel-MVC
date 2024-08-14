@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Admin\Post;
 
-use App\Http\Controllers\BaseController;
+use App\Http\Controllers\Controller;
 use App\Http\Filters\PostFilter;
 use App\Http\Requests\FilterRequest;
 use App\Models\Post;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\View\View;
 
-class IndexController extends BaseController
+class IndexController extends Controller
 {
     /**
      * @throws BindingResolutionException
@@ -20,8 +20,6 @@ class IndexController extends BaseController
 
         $posts = Post::filter($filter)->paginate(10);
 
-        $postsCount = Post::all()->count();
-
-        return view('admin.post.index', compact('posts', 'postsCount'));
+        return view('admin.post.index', compact('posts'));
     }
 }

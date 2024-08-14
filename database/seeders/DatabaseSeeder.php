@@ -26,5 +26,10 @@ class DatabaseSeeder extends Seeder
             $tagsIds = $tags->random(5)->pluck('id');
             $post->tags()->attach($tagsIds);
         }
+
+        $this->call([
+            PermissionsSeeder::class,
+            RolesSeeder::class
+        ]);
     }
 }
