@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Admin\Role;
 
 
+use App\Enums\PermissionEnum;
 use App\Enums\RoleEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleStoreRequest;
 use App\Http\Requests\RoleUpdateRequest;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
@@ -42,27 +44,35 @@ class RoleController extends Controller
     public function store(RoleStoreRequest $request): RedirectResponse
     {
         $this->roleService->store($request->validated());
+
         return redirect()->route('admin.role.index')->with('status', 'Role Created Successfully');
     }
 
     /**
      * Display the specified resource.
+     * @throws Exception
      */
     public function show(Role $role): View
     {
+        if ($role->name == RoleEnum::SUPER_ADMIN->value) {
+            throw new Exception('You can not see super-admin role.');
+        }
+
         return view('admin.role.show', compact('role'));
     }
 
     /**
      * Show the form for editing the specified resource.
+     * @throws Exception
      */
     public function edit(Role $role): View
     {
-//        if($role->name == 'super-admin'){
-//            throwException()
-//        }
-        $role = Role::where('name', 'not like', 'super-admin')->findOrFail($role->id);
-        $permissions = Permission::all();
+        if ($role->name == RoleEnum::SUPER_ADMIN->value) {
+            throw new Exception('You can not edit super-admin role');
+        }
+
+        $permissions = Permission::query()->where('name', 'not like', PermissionEnum::MANAGE_ROLES->value)->get();
+
         return view('admin.role.edit', compact('role', 'permissions'));
     }
 
@@ -71,7 +81,7 @@ class RoleController extends Controller
      */
     public function update(RoleUpdateRequest $request, Role $role): RedirectResponse
     {
-        $role = Role::where('name', '!=', 'super-admin')->findOrFail($role->id);
+        $role = Role::query()->where('name', '!=', 'super-admin')->findOrFail($role->id);
 
         $updatedRole = $this->roleService->update($role, $request->validated());
 
@@ -84,6 +94,7 @@ class RoleController extends Controller
     public function destroy(Role $role): RedirectResponse
     {
         $role->delete();
+
         return redirect()->route('admin.role.index');
     }
 }

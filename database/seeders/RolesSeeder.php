@@ -15,18 +15,35 @@ class RolesSeeder extends Seeder
      */
     public function run(): void
     {
-        $superAdmin = User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('1234567890'),
-        ]);
-
         foreach (RoleEnum::cases() as $role) {
             Role::create([
                 'name' => $role->value
             ]);
         }
 
-        $superAdmin->assignRole('super-admin');
+        $superAdmin = User::create([
+            'name' => 'Super Admin',
+            'email' => 'superAdmin@admin.com',
+            'password' => Hash::make('1234567890'),
+        ]);
+
+        $superAdmin->assignRole(RoleEnum::SUPER_ADMIN);
+
+        $admin = User::create([
+            'name' => 'Admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('1234567890'),
+        ]);
+
+        $admin->assignRole(RoleEnum::ADMIN);
+
+        $user = User::create([
+            'name' => 'User',
+            'email' => 'user@user.com',
+            'password' => Hash::make('1234567890'),
+        ]);
+
+        $user->assignRole(RoleEnum::USER);
+
     }
 }

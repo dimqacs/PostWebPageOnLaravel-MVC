@@ -18,12 +18,14 @@
                         <span class="badge badge-info right">{{$postsCount}}</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{route('admin.post.create')}}" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Create new Post</p>
-                    </a>
-                </li>
+                @if(auth()->user()->can('create posts'))
+                    <li class="nav-item">
+                        <a href="{{route('admin.post.create')}}" class="nav-link">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Create new Post</p>
+                        </a>
+                    </li>
+                @endif
             </ul>
         </li>
     </ul>

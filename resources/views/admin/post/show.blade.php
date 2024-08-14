@@ -25,8 +25,14 @@
                         <div><b>{{$index + 1}}</b>. {{$tag->name}}</div>
                     @endforeach
                 </div>
-                <a class="btn btn-primary mt-3" href="{{route('admin.post.edit', compact('post'))}}">Update this Post</a>
-                <a class="btn btn-danger mt-3 ml-2" href="{{route('admin.post.delete', compact('post'))}}">Delete this Post</a>
+                @if(auth()->user()->can('edit posts'))
+                    <a class="btn btn-primary mt-3" href="{{route('admin.post.edit', compact('post'))}}">Update this
+                        Post</a>
+                @endif
+                @if(auth()->user()->can('delete posts'))
+                    <a class="btn btn-danger mt-3 ml-2" href="{{route('admin.post.delete', compact('post'))}}">Delete
+                        this Post</a>
+                @endif
             </div>
         </div>
     </div>

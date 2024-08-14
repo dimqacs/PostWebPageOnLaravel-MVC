@@ -8,7 +8,6 @@ use Illuminate\Contracts\View\View;
 
 class ShowController extends Controller
 {
-
     public function __invoke(Post $post): View
     {
         return view('admin.post.show', compact('post'));
